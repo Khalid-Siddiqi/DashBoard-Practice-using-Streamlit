@@ -1,9 +1,13 @@
 import pandas as pd
-import plotly.express as px
+#import plotly.express as px
 import streamlit as st
 
-df = pd.read_csv(
-    io = "supermarkt_sales.xlsx",
+st.set_page_config(page_title="Supermarket Sales Dashboard",
+                   page_icon=":bar_chart:",
+                   layout="wide")
+
+df = pd.read_excel(
+    'supermarkt_sales.xlsx',
     engine= "openpyxl",
     sheet_name= "Sales",
     skiprows=3,
@@ -11,4 +15,24 @@ df = pd.read_csv(
     nrows=1000,
     )
 
-print(df.head())
+st.dataframe(df.head())
+
+# Building Sidebars now
+st.sidebar.header("Please Filter Here:")
+city = st.sidebar.multiselect(
+    "Select the City:",
+    options=df["City"].unique(),
+    default=df["City"].unique()
+)
+
+costumer_type = st.sidebar.multiselect(
+    "Select the Customer Type:",
+    options=df["Customer_type"].unique(),
+    default=df["Customer_type"].unique()
+)
+
+gender = st.sidebar.multiselect(
+    "Select the Gender:",
+    options = df["Gender"].unique(),
+    default = df["Gender"].unique()
+)
