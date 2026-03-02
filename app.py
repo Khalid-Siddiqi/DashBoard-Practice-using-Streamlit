@@ -41,7 +41,7 @@ df_selection = df.query(
 )
 
 
-st.dataframe(df_selection)
+#st.dataframe(df_selection)
 
 ## Main Page
 st.title(":bar_chart: Supermarket Sales Dashboard")
@@ -62,3 +62,10 @@ with middle_column:
 with right_column:
     st.subheader("Average Sales Per Transaction:")
     st.subheader(f"US $ {average_sale_by_transaction}")
+
+st.markdown("---")
+
+# 2nd kpi : bar chart
+sales_by_product_line = (
+    df_selection.groupby(by=["Product line"])["Total"].sum().sort_values()
+)
