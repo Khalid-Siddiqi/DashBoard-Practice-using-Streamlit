@@ -15,7 +15,7 @@ df = pd.read_excel(
     nrows=1000,
     )
 
-st.dataframe(df.head())
+
 
 # Building Sidebars now
 st.sidebar.header("Please Filter Here:")
@@ -36,3 +36,9 @@ gender = st.sidebar.multiselect(
     options = df["Gender"].unique(),
     default = df["Gender"].unique()
 )
+df_selection = df.query(
+    "City == @city & Customer_type == @costumer_type & Gender == @gender"
+)
+
+
+st.dataframe(df_selection)
