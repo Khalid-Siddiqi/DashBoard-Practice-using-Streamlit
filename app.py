@@ -86,7 +86,7 @@ fig_product_sales.update_layout(
     plot_bgcolor="rgba(0,0,0,0)",
     xaxis=(dict(showgrid=False))
 )
-st.plotly_chart(fig_product_sales)
+
 # sales by hour [bar chart]
 sales_by_hour = df_selection.groupby(by=["hour"])["Total"].sum()
 fig_hourly_sales = px.bar(
@@ -101,8 +101,15 @@ fig_hourly_sales.update_layout(
     plot_bgcolor="rgba(0,0,0,0)",
     yaxis=(dict(showgrid=False))
 )
-st.plotly_chart(fig_hourly_sales)
 
 left_column, right_column = st.columns(2)
 left_column.plotly_chart(fig_product_sales, use_container_width=True)
 right_column.plotly_chart(fig_hourly_sales, use_container_width=True)
+
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+</style> """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
